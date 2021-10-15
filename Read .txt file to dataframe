@@ -1,0 +1,3 @@
+# Creates dataframe from tab seperated .txt file 
+# header=TRUE indicates that there are collumn headers
+df <- read.table("/path/to/csv/file.txt",stringsAsFactors=F, sep= "\t",header=TRUE)
