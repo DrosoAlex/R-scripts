@@ -1,0 +1,15 @@
+#Load GenomicRanges library
+library(GenomicRanges)
+
+#Generate GenomicRanges object from datframe
+gr  <- GenomicRanges::GRanges(df)
+
+#Remove chr from GRanges Seqnames if necessary
+library("diffloop")
+gr_no_chr <- rmchr(gr)
+
+#Generate a subset by overlaps from two GRanges object and safe as dataframe
+subset_gr <- as(subsetByOverlaps(gr_1, gr_2),"data.frame")
+
+#Merge GRanges objects by overlap
+merged_gr <- mergeByOverlaps(gr_1, gr_2)
