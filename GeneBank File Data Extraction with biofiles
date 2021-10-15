@@ -1,0 +1,20 @@
+#!/usr/bin/env Rscript --vanilla
+
+install.packages("biofiles")
+library("biofiles")
+
+#Write data from Database (.dat) files into dataframes
+Chr2L <- biofiles::gbRecord("Drosophila_melanogaster.BDGP6.22.97.chromosome.2L.dat")
+Chr2R <- biofiles::gbRecord("Drosophila_melanogaster.BDGP6.22.97.chromosome.2R.dat")
+Chr3L <- biofiles::gbRecord("Drosophila_melanogaster.BDGP6.22.97.chromosome.3L.dat")
+Chr3R <- biofiles::gbRecord("Drosophila_melanogaster.BDGP6.22.97.chromosome.3R.dat")
+Chr4 <- biofiles::gbRecord("Drosophila_melanogaster.BDGP6.22.97.chromosome.4.dat")
+ChrX <- biofiles::gbRecord("Drosophila_melanogaster.BDGP6.22.97.chromosome.X.dat")
+ChrY <- biofiles::gbRecord("Drosophila_melanogaster.BDGP6.22.97.chromosome.Y.dat")
+
+#Extract locus collumn
+Chr2L_locus <- as.data.frame(Chr2L["locus"])
+
+# Filter for CDS kex
+cds <- biofiles::filter(Chr2L, key = "CDS")
+biofiles::summary(cds[1:2])
