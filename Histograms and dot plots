@@ -1,0 +1,5 @@
+#Generates a histogram; breaks gives number of cells for the histogram (can be a function)
+hist(log2(df$columnHeader),breaks = 100)
+
+#Generates a dotplot
+plot(df$colHeader1, df$colHeader2)
