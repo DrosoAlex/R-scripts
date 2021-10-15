@@ -1,0 +1,39 @@
+#!/usr/bin/Rscript
+
+#set work directory
+setwd("C:/path/to/wd")
+
+#Load libraries
+library(ggplot2)
+library(heatmap)
+
+#Order dataframe by distance score
+ordered_master_df <-  master_df[order(-abs(master_df$Distance_score)),]
+
+#Generate Heatmap data matrix (n=40)
+heatmap_data_matrix <- data.matrix(ordered_master_df[1:40,c(8:117)])
+
+#Specify row names
+row.names(heatmap_data_matrix) <- ordered_master_df[1:40,]$Symbol
+
+#Generate dendogram
+dd <- as.dendrogram(hclust(dist(heat_data_matrix_euklid[,111:120])))
+
+#Specify color palette
+redgreen <- c("blue", "white", "red") 
+pal <- colorRampPalette(redgreen)(100)
+
+#Plot heatmap with specified parameters
+heatmap(heatmap_data_matrix[,111:120], Colv=NA, col=pal, scale="none",  ylab="TSSs",Rowv=dd,keep.dendro=T, breaks=seq(-5, 5, length.out=101))
+
+#Generate .png
+png(filename="file.png",width=900,height=600)
+par(mar=c(5,5,2,2),cex=1.5,cex.axis=1.3,cex.lab=1.5)
+heatmap(heatmap_data_matrix[,111:120], Colv=NA, col=pal, scale="none",  ylab="TSSs",Rowv=dd,keep.dendro=T, breaks=seq(-5, 5, length.out=101))
+dev.off()
+
+#Generate .pdf
+pdf(file="file.pdf",width=9,height=6)
+par(mar=c(5,5,2,2),cex=1.3,cex.axis=1.1,cex.lab=1.3)
+heatmap(heatmap_data_matrix[,111:120], Colv=NA, col=pal, scale="none",  ylab="TSSs",Rowv=dd,keep.dendro=T, breaks=seq(-5, 5, length.out=101))
+dev.off()
